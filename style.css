@@ -1,0 +1,442 @@
+:root {
+    --primary-background-color: rgba(0, 0, 0, 0.15);
+    --non-active: crimson;
+    --active-color: #eee;
+    --scroll-text-time: 6s;
+    --text-color: #1c2382;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    color: #eee;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background-image: url(./src/background/img1.jpg);
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    position: relative;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+p {
+    margin: 4px 0;
+}
+
+.i-fo {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.i-fo2 {
+    font-size: 30px;
+    cursor: pointer;
+    color: var(--active-color);
+}
+
+.set-inp {
+    display: flex;
+    height: 20px;
+    justify-content: space-between;
+}
+
+.set-inp input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: var(--active-color);
+}
+
+.set-av {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-size: cover;
+    border: 2px solid var(--text-color);
+}
+
+.set-color {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+}
+
+/*  */
+
+/* avata */
+.avata {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+}
+
+.avata .content {
+    text-align: end;
+    margin-right: 10px;
+}
+
+.content p {
+    font-size: 12px;
+}
+
+.avata > .content > h3 {
+    color: var(--active-color);
+}
+.avata .img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-image: url(./src/avt/meo.png);
+    background-size: cover;
+    border: 2px solid #ccc;
+    position: relative;
+    cursor: pointer;
+}
+
+.avtMeo, .color {
+    display: flex;
+    flex-wrap: wrap; /* Tự động xuống hàng */
+    gap: 10px;
+}
+
+.save {
+    height: 30px;
+    width: 100px;
+    background-color: var(--active-color);
+    border: none;
+    border-radius: 5px;
+}
+
+.avata .img:hover {
+    transform: rotate(45deg);
+}
+
+.avata .setting {
+    width: 225px;
+    height: 500px;
+    position: absolute;
+    top: 100px;
+    right: 0;
+
+    display: none;
+}
+
+
+
+/* cd  */
+.cdTheme {
+    position: absolute;
+    width: 100%;
+    /* height: 300px; */
+    z-index: 40;
+}
+
+.cd {
+    position: absolute;
+    display: flex;
+    margin: auto;
+    left: 0; right: 0; top: 10px;
+    width: 150px;
+    height: 150px;
+    background-image: url(/src/avtMusic/duyenam.png);
+    background-size: cover;
+    border-radius: 10px;
+    z-index: 50;
+}
+
+.cdMove {
+    position: absolute;
+    display: flex;
+    margin: auto;
+    left: 0; right: 0; top: 20px;
+    width: 130px;
+    height: 130px;
+    background-image: url(/src/avtMusic/duyenam.png);
+    background-size: cover;
+    z-index: 1;
+    /* transform: translateX(70px); */
+    border: 2px #eee solid;
+    opacity: 0.7;
+
+    transition: transform 1s ease-in-out;
+}
+
+.cdMove.active {
+    transform: translateX(70px); 
+    border-radius: 50%;
+    box-shadow: 0 0 50px 20px var(--active-color);
+}
+
+.cdMove.active::before {
+    content: '';
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: #fff;
+    opacity: 0.9;
+    border: 1px black solid;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transform: translate(50%, 0);
+}
+
+
+.cdTheme .content {
+    position: fixed;
+    height: 100px;
+    width: 200px;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    margin: auto;
+    text-align: center;
+    transform: translateY(-100%);
+}
+
+.cdTheme > .content > h2 {
+    text-shadow: 0px 0px 20px #fff;
+}
+
+.cdTheme > .content > p {
+    font-size: 16px;
+}
+
+
+
+/* play list */
+.playList {
+    width: 375px;
+    height: 600px;
+    margin: 21px;
+    position: relative;
+    z-index: 30;
+    box-shadow: -5px 5px 20px black;
+}
+
+.tabs {
+    display: flex;
+    width: 100%;
+    height: 40px;
+
+}
+
+.tab1, .tab2, .tab3, .tab4 {
+    width: calc(100% / 4);
+    text-align: center;
+    padding: 12px 4px;
+    cursor: pointer;
+}
+
+.stt {
+    text-align: end;
+    width: calc(100% / 4);
+    padding: 12px 4px;
+}
+
+.active {
+    background-color: var(--active-color);
+    color: var(--text-color);
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+
+.search {
+    width: 100%;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center ;
+    justify-content: flex-start;
+    gap: 25px;
+    
+}
+
+.find {
+    width: 90%;
+    padding: 4px;
+    background-color:  #595454;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: 600;
+}
+
+i.fa-solid.fa-magnifying-glass {
+    cursor: pointer;
+}
+
+.listMusic {
+    margin: 8px;
+    height: 85%;
+    width: 100%;
+}
+
+.listMusic ul {
+    height: 100%;
+    overflow-y: scroll;
+    padding: 2px 8px;
+    /* box-shadow: -5px 5px 20px black; */
+    
+}
+
+.listMusic ul::-webkit-scrollbar {
+    width: 3px; /* Điều chỉnh độ rộng của thanh lăn chuột */
+}
+
+.listMusic ul::-webkit-scrollbar-track {
+    background: #fff; /* Thiết lập màu nền cho thanh lăn chuột */
+}
+
+.listMusic ul::-webkit-scrollbar-thumb {
+    background: #ccc; /* Thiết lập màu cho thanh cuộn */
+    border-radius: 5px; /* Bo tròn góc cho thanh cuộn */
+}
+
+
+
+.listMusic ul li {
+    height: 70px;
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Ẩn bất kì phần tử con ra ngoài phần tử cha*/
+    cursor: pointer;
+}
+
+ 
+.listMusic ul li::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--active-color);
+    opacity: 0.7;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-out;
+    border-radius: 5px;
+    z-index: -1;
+}
+
+.listMusic ul li:hover::before {
+    transform: translateX(0%);
+}
+  
+
+.listMusic ul li .avt {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    background-size: cover;
+    background-image: url(./src/avtMusic/duyenam.png);
+    margin: 12px;
+}
+
+.listMusic ul li .content {
+}
+
+.listMusic ul li .icons {
+    display: flex;
+    margin-left: 70px;
+    gap: 20px;
+}
+
+.list-Option {
+    display: none;
+    height: 200px;
+    width: 100px;
+    /* background-color: #ccc; */
+}
+
+
+/* control audio */
+.control {
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    padding:5px 21px;
+    background-color:  rgba(23, 15, 35, 0.9);
+}
+
+.top-Control {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0;
+}
+
+
+.control .progress {
+    width: 90%;
+}   
+
+.volume,
+
+.control .progress {
+    width: 100%;
+    -webkit-appearance: none;
+    border-radius: 25px;
+    height: 6px;
+    background: var(--active-color);
+    outline: none;
+    opacity: 0.8;
+    overflow: hidden;
+    transition: opacity 0.2s, height 0.2s;
+}
+
+.key {
+    display: flex;
+    margin: 8px 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.sound {
+    display: flex; 
+    align-items: center;
+    gap: 10px;
+
+}
+
+.volume {
+    width: 100px;
+    
+}
+
+
+
+.key .icons {
+    display: flex;
+    gap: 50px;
+    margin-left: 20px;
+    align-items: center;
+}

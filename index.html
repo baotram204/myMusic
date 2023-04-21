@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <!-- my avata -->
+    <div class="avata">
+        <div class="content">
+            <h3>Hello!</h3>
+            <p>Nhấn vào ảnh đại diện để cài đặt</p>
+        </div>
+        <div class="img"></div>
+        <div class="setting">
+            <span class="fullName set-inp">
+                Họ tên
+                <input type="text" placeholder="Ví dụ: Bảo Trâm">
+            </span>
+            <br>
+            <span class="bio set-inp">
+                Tiểu sử
+                <input type="text" placeholder="Ví dụ: Hello!">
+            </span>
+            <br>
+            <h4>Ảnh đại diện: </h4>
+            <br>
+            <div class="avtMeo">
+                <div class="set-av" style="background-image: url(./src/avt/meo.png);"></div>
+                <div class="set-av" style="background-image: url(./src/avt/meo2.png);"></div>
+                <div class="set-av" style="background-image: url(./src/avt/meo4.jpg);"></div>
+                <div class="set-av" style="background-image: url(./src/avt/meo5.jpg);"></div>
+                <div class="set-av" style="background-image: url(./src/avt/meo6.jpg);"></div>
+                <div class="set-av" style="background-image: url(./src/avt/meo7.jpg);"></div>
+            </div>
+            <br>
+            <h4>Màu:</h4>
+            <br>
+            <div class="color">
+                <div class="set-color" style="background-color: #2cccff;"></div>
+                <div class="set-color" style="background-color: #ffe700;"></div>
+                <div class="set-color" style="background-color: #FF6651;"></div>
+                <div class="set-color" style="background-color: #eee;"></div>
+                <div class="set-color" style="background-color: #F7CAC9;"></div>
+                <div class="set-color" style="background-color: #20E3B2;"></div>
+                <div class="set-color" style="background-color: #6A5AF9;"></div>
+            </div>
+            <br>
+            <button class="save">Lưu</button>
+        </div>
+
+    </div>
+    
+    <!-- cd theme -->
+    <div class="cdTheme">
+        <div class="cd"></div>
+        <div class="cdMove">
+            <div class="dot"></div>
+        </div>
+        <div class="content">
+            <p>...</p>
+            <h2>Tên bài hát</h2>
+            <p>Ca sĩ</p>
+        </div>
+    </div>
+
+    <!-- play list -->
+    <div class="playList">
+        <!-- control tabs -->
+        <div class="tabs">
+            <div class="tab1 active ">Mục chính</div>
+            <div class="tab2">Yêu thích</div>
+            <div class="tab3">Đã xóa</div>
+            <p class="stt">1/5</p>
+        </div>
+
+        <!-- search -->
+        <div class="search">
+            <input type="text" class="find" placeholder="Tìm bài hát">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <!-- List song music -->
+        <div class="listMusic">
+            <ul>
+                <li class="active">
+                    <div class="avt"></div>
+                    <div class="content">
+                        <h3>Tên bài hát</h3>
+                        <p>Ca sĩ</p>
+                    </div>
+                    <div class="icons">
+                        <i class="fa-regular fa-heart"></i>
+                        <div class="options">
+                            <i class="fa-solid fa-ellipsis"></i>
+                            <ul class="list-Option">
+                                <li class="delete">Xóa</li>
+                                <li class="nextSong">Phát tiếp theo</li>
+                                <li class="add">Thêm vào yêu thích</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="">
+                    <div class="avt"></div>
+                    <div class="content">
+                        <h3>Tên bài hát</h3>
+                        <p>Ca sĩ</p>
+                    </div>
+                    <div class="icons">
+                        <i class="fa-regular fa-heart"></i>
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </div>
+                </li>
+
+                
+            </ul>
+        </div>
+    </div>
+
+    <!-- control audio -->
+    <div class="control">
+        <div class="top-Control">
+            <div class="nu1">00:00</div>
+            <input type="range" class="progress" value="100" max="100" min="0">
+            <div class="nu2">03:00</div>
+        </div>
+
+        <div class="key">
+            <div class="sound" >
+                <i class="fa-solid fa-volume-high"></i>
+                <!-- <i class="fa-solid fa-volume-low"></i> -->
+                <!-- <i class="fa-solid fa-volume-xmark"></i> -->
+                <input type="range" class="volume" value="100" max="100" min="0">
+            </div>
+
+            <div class="icons">
+                <!-- repeat  -->
+                <i class="i-fo fa-solid fa-rotate-right"></i>
+                <!-- prev -->
+                <i class="i-fo fa-solid fa-backward-step"></i>
+                <!-- play -->
+                <i class="i-fo2 fa-regular fa-circle-play"></i>
+                <!-- <i class="i-fo2 fa-regular fa-circle-pause"></i> -->
+                <!-- next -->
+                <i class="i-fo fa-solid fa-forward-step"></i>
+                <!-- random -->
+                <i class="i-fo fa-solid fa-shuffle"></i>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
