@@ -296,7 +296,7 @@ i.fa-solid.fa-magnifying-glass {
     width: 100%;
 }
 
-.listMusic ul {
+.listMusic > ul {
     height: 100%;
     overflow-y: scroll;
     padding: 2px 8px;
@@ -304,22 +304,22 @@ i.fa-solid.fa-magnifying-glass {
     
 }
 
-.listMusic ul::-webkit-scrollbar {
+.listMusic > ul::-webkit-scrollbar {
     width: 3px; /* Điều chỉnh độ rộng của thanh lăn chuột */
 }
 
-.listMusic ul::-webkit-scrollbar-track {
+.listMusic > ul::-webkit-scrollbar-track {
     background: #fff; /* Thiết lập màu nền cho thanh lăn chuột */
 }
 
-.listMusic ul::-webkit-scrollbar-thumb {
-    background: #ccc; /* Thiết lập màu cho thanh cuộn */
+.listMusic > ul::-webkit-scrollbar-thumb {
+    background: var(--active-color)  ; /* Thiết lập màu cho thanh cuộn */
     border-radius: 5px; /* Bo tròn góc cho thanh cuộn */
 }
 
 
 
-.listMusic ul li {
+.listMusic > ul > li {
     height: 70px;
     width: 100%;
     margin-bottom: 10px;
@@ -332,7 +332,7 @@ i.fa-solid.fa-magnifying-glass {
 }
 
  
-.listMusic ul li::before {
+.listMusic > ul > li::before {
     content: '';
     position: absolute;
     width: 100%;
@@ -345,7 +345,7 @@ i.fa-solid.fa-magnifying-glass {
     z-index: -1;
 }
 
-.listMusic ul li:hover::before {
+.listMusic > ul  > li:hover::before {
     transform: translateX(0%);
 }
   
