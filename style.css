@@ -39,6 +39,11 @@ p {
     cursor: pointer;
 }
 
+.i-fo::before,
+.i-fo2::before {
+    padding: 8px;
+}
+
 .i-fo2 {
     font-size: 30px;
     cursor: pointer;
@@ -171,7 +176,8 @@ p {
     background-image: url(/src/avtMusic/duyenam.png);
     background-size: cover;
     z-index: 1;
-    /* transform: translateX(70px); */
+    border-radius: 50%;
+    box-shadow: 0 0 50px 20px var(--active-color);
     border: 2px #eee solid;
     opacity: 0.7;
 
@@ -184,7 +190,9 @@ p {
     box-shadow: 0 0 50px 20px var(--active-color);
 }
 
-.cdMove.active::before {
+
+
+.cdMove.active::before { /* dot in cd*/
     content: '';
     height: 15px;
     width: 15px;
@@ -355,16 +363,16 @@ i.fa-solid.fa-magnifying-glass {
     height: 50px;
     border-radius: 5px;
     background-size: cover;
-    background-image: url(./src/avtMusic/duyenam.png);
+    /* background-image: url(./src/avtMusic/duyenam.png); */
     margin: 12px;
 }
 
-.listMusic ul li .content {
+.listMusic > ul > li > .content {
+    width: 50%;
 }
 
 .listMusic ul li .icons {
     display: flex;
-    margin-left: 70px;
     gap: 20px;
 }
 
@@ -400,18 +408,18 @@ i.fa-solid.fa-magnifying-glass {
 }   
 
 .volume,
-
 .control .progress {
     width: 100%;
     -webkit-appearance: none;
     border-radius: 25px;
     height: 6px;
-    background: var(--active-color);
+    background: #eeeeee8e;
     outline: none;
     opacity: 0.8;
     overflow: hidden;
     transition: opacity 0.2s, height 0.2s;
 }
+
 
 .key {
     display: flex;
@@ -439,4 +447,8 @@ i.fa-solid.fa-magnifying-glass {
     gap: 50px;
     margin-left: 20px;
     align-items: center;
+}
+
+.icons .fa-circle-pause {
+    display: none;
 }

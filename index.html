@@ -87,38 +87,7 @@
         <!-- List song music -->
         <div class="listMusic">
             <ul>
-                <li class="active">
-                    <div class="avt"></div>
-                    <div class="content">
-                        <h3>Tên bài hát</h3>
-                        <p>Ca sĩ</p>
-                    </div>
-                    <div class="icons">
-                        <i class="fa-regular fa-heart"></i>
-                        <div class="options">
-                            <i class="fa-solid fa-ellipsis"></i>
-                            <ul class="list-Option">
-                                <li class="delete">Xóa</li>
-                                <li class="nextSong">Phát tiếp theo</li>
-                                <li class="add">Thêm vào yêu thích</li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
 
-                <li class="">
-                    <div class="avt"></div>
-                    <div class="content">
-                        <h3>Tên bài hát</h3>
-                        <p>Ca sĩ</p>
-                    </div>
-                    <div class="icons">
-                        <i class="fa-regular fa-heart"></i>
-                        <i class="fa-solid fa-ellipsis"></i>
-                    </div>
-                </li>
-                
-                
             </ul>
         </div>
     </div>
@@ -127,8 +96,8 @@
     <div class="control">
         <div class="top-Control">
             <div class="nu1">00:00</div>
-            <input type="range" class="progress" value="100" max="100" min="0">
-            <div class="nu2">03:00</div>
+            <input type="range" class="progress" value="0" max="100" min="0">
+            <div class="nu2">00:00</div>
         </div>
 
         <div class="key">
@@ -136,7 +105,7 @@
                 <i class="fa-solid fa-volume-high"></i>
                 <!-- <i class="fa-solid fa-volume-low"></i> -->
                 <!-- <i class="fa-solid fa-volume-xmark"></i> -->
-                <input type="range" class="volume" value="100" max="100" min="0">
+                <input type="range" class="volume" value="1" max="1" min="0" step="0.01">
             </div>
 
             <div class="icons">
@@ -145,14 +114,19 @@
                 <!-- prev -->
                 <i class="i-fo fa-solid fa-backward-step"></i>
                 <!-- play -->
-                <i class="i-fo2 fa-regular fa-circle-play"></i>
-                <!-- <i class="i-fo2 fa-regular fa-circle-pause"></i> -->
+                <div class="btnPlay">
+                    <i class="i-fo2 fa-regular fa-circle-play"></i>
+                    <i class="i-fo2 fa-regular fa-circle-pause"></i>
+                </div>
                 <!-- next -->
                 <i class="i-fo fa-solid fa-forward-step"></i>
                 <!-- random -->
                 <i class="i-fo fa-solid fa-shuffle"></i>
             </div>
+
+            <audio src="" id="audio"></audio>
         </div>
     </div>
+    <script type="module" src="./main.js"></script>
 </body>
 </html>
