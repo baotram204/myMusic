@@ -16,21 +16,21 @@
             <p>Nhấn vào ảnh đại diện để cài đặt</p>
         </div>
         <div class="img"></div>
-        <div class="setting">
-            <span class="fullName set-inp">
+        <div class="setting" style="display: none;">
+            <span class=" set-inp">
                 Họ tên
-                <input type="text" placeholder="Ví dụ: Bảo Trâm">
+                <input type="text" placeholder="Ví dụ: Bảo Trâm" class="fullName">
             </span>
             <br>
-            <span class="bio set-inp">
+            <span class=" set-inp">
                 Tiểu sử
-                <input type="text" placeholder="Ví dụ: Hello!">
+                <input type="text" placeholder="Ví dụ: Hello!" class="bio">
             </span>
             <br>
             <h4>Ảnh đại diện: </h4>
             <br>
             <div class="avtMeo">
-                <div class="set-av" style="background-image: url(./src/avt/meo.png);"></div>
+                <div class="set-av choose1" style="background-image: url(./src/avt/meo.png);"></div>
                 <div class="set-av" style="background-image: url(./src/avt/meo2.png);"></div>
                 <div class="set-av" style="background-image: url(./src/avt/meo4.jpg);"></div>
                 <div class="set-av" style="background-image: url(./src/avt/meo5.jpg);"></div>
@@ -44,7 +44,7 @@
                 <div class="set-color" style="background-color: #2cccff;"></div>
                 <div class="set-color" style="background-color: #ffe700;"></div>
                 <div class="set-color" style="background-color: #FF6651;"></div>
-                <div class="set-color" style="background-color: #eee;"></div>
+                <div class="set-color choose2" style="background-color: #eee;"></div>
                 <div class="set-color" style="background-color: #F7CAC9;"></div>
                 <div class="set-color" style="background-color: #20E3B2;"></div>
                 <div class="set-color" style="background-color: #6A5AF9;"></div>
@@ -103,9 +103,9 @@
         <div class="key">
             <div class="sound" >
                 <i class="fa-solid fa-volume-high"></i>
-                <!-- <i class="fa-solid fa-volume-low"></i> -->
-                <!-- <i class="fa-solid fa-volume-xmark"></i> -->
-                <input type="range" class="volume" value="1" max="1" min="0" step="0.01">
+                <i class="fa-solid fa-volume-low"></i>
+                <i class="fa-solid fa-volume-xmark"></i>
+                <input type="range" class="volume" value="1" max="1" min="0" step="0.1">
             </div>
 
             <div class="icons">

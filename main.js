@@ -1,5 +1,6 @@
 
 import getListMusic from './getApi.js'
+import handleChangeData from './changeData.js'
 
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
@@ -12,6 +13,7 @@ const audio = document.getElementById('audio')
 
 
 let list, currSong=1, isPlaying = false, isRepeat = false, isRandom = false
+
 
 function getSongs(songs) {
     list = songs
@@ -57,11 +59,16 @@ function handleEvent() {
     const progressBar = $('.progress')
     const volume = $('.volume')
 
+    // songs.forEach(song =>{
+    //     song.onclick = () =>{
+    //         handlePlayMusic()
+    //         handleCdtheme()
+    //         currSong = song.id  
+    //     }
+    // })
+
     songs.forEach(song =>{
-        song.onclick = () =>{
-            handlePlayMusic()
-            handleCdtheme()
-            currSong = song.id  
+        song.onclick = (e) =>{
         }
     })
 
@@ -99,19 +106,17 @@ function handleEvent() {
     }
 
     btnPlay.onclick = () => {
-        if (isPlaying) {
+
+        if (isPlaying === false) { 
+            isPlaying = true
+            iconPlay.style.display = 'none'
+            iconPause.style.display = 'block'
+            audio.play()
+        } else {
             isPlaying = false
             iconPlay.style.display = 'block'
             iconPause.style.display = 'none'
             audio.pause()
-        } else {
-            isPlaying = true
-            iconPlay.style.display = 'none'
-            iconPause.style.display = 'block'
-            if (currSong === 1) {
-                   audio.src = list[0].link
-            }
-            audio.play()
         }
         handleCdtheme()
         loadtime()
@@ -168,8 +173,25 @@ function handleEvent() {
     // volume change
     volume.addEventListener('input', function () {
         audio.volume = volume.value;
+        if (audio.volume === 0) {
+            $('.fa-volume-high').style.display = 'none'
+            $('.fa-volume-low').style.display = 'none'
+            $('.fa-volume-xmark').style.display = 'block'
+        }
+        if (audio.volume >0 && audio.volume < 0.5) {
+            $('.fa-volume-high').style.display = 'none'
+            $('.fa-volume-low').style.display = 'block'
+            $('.fa-volume-xmark').style.display = 'none'
+        } 
+        if (audio.volume >= 0.5) {
+            $('.fa-volume-high').style.display = 'block'
+            $('.fa-volume-low').style.display = 'none'
+            $('.fa-volume-xmark').style.display = 'none'
+        }
         console.log(audio.volume)
     })
+
+
 }
 
 function handlePlayMusic() {
@@ -223,6 +245,7 @@ function handleCdtheme() {
 function loadFirstSong() {
     const song = $('.listMusic ul > li') 
     song.classList.add('active')
+    audio.src = list[0].link
 }
 
 
@@ -231,7 +254,7 @@ async function start() {
     await getListMusic(getSongs)
     await loadFirstSong()
     await handleEvent()
-
+    await handleChangeData()
 }
 
 start()
