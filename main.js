@@ -1,6 +1,7 @@
 
 import getListMusic from './getApi.js'
 import handleChangeData from './changeData.js'
+// import handleFindSong from './handleFindSong.js'
 
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
@@ -12,7 +13,7 @@ const audio = document.getElementById('audio')
 
 
 
-let list, currSong=1, isPlaying = false, isRepeat = false, isRandom = false
+let list, currSong=1, isPlaying = false, isRepeat = false, isRandom = false, isNext = false, isPrev = false
 
 
 function getSongs(songs) {
@@ -22,7 +23,7 @@ function getSongs(songs) {
     songs.map(song => {
         return html += `
         <li class="" id="${song.id}">
-            <div class="avt" style="${song.img}"></div>
+            <div class="avt" style="background-image: url(${song.img})"></div>
             <div class="content">
                 <h3>${song.name}</h3>
                 <p>${song.author}</p>
@@ -78,23 +79,24 @@ function handleEvent() {
         } else {
             currSong = currSong -1
         }
-        console.log(currSong)
+        isPlaying = true
         handlePlayMusic()
         handleCdtheme()
     }
 
     next.onclick = () => {
-
+        
         if (isRandom) {
             currSong = Math.floor( Math.random()* (list.length ))  +1
             
         } else {
             currSong = currSong === list.length ? 1 : currSong+1
         }
-
+        isNext = true
+        isPlaying = true
         handlePlayMusic()
         handleCdtheme()
-        
+
     }
 
     audio.onended = () => {
@@ -194,6 +196,7 @@ function handleEvent() {
 
 }
 
+// when music is playing
 function handlePlayMusic() {
     list.forEach(play => {
         if (play.id == currSong) {
@@ -203,6 +206,22 @@ function handlePlayMusic() {
             iconPlay.style.display = 'none'
             iconPause.style.display = 'block'
             audio.src = play.link
+
+            // set img cursor position
+            const cdTheme = $('.cdTheme')
+            let hmtl = [`
+                <div class="cd" style="background-image: url(${play.img})"></div>
+                <div class="cdMove" style="background-image: url(${play.img})" >
+                    <div class="dot"></div>
+                </div>
+                <div class="content">
+                    <p>...</p>
+                    <h2>${play.name}</h2>
+                    <p>${play.author}</p>
+                </div>
+            `]
+            cdTheme.innerHTML = hmtl.join('')
+
             audio.play()
             isPlaying = true
         }
@@ -223,14 +242,10 @@ function loadtime() {
 }
 
 function handleCdtheme() {
-    const play = $('.cdMove')
-    if (isPlaying) {
-        play.classList.add('active')
-    } else {
-        play.classList.remove('active')
-    }
+    const play = $('.cdTheme')
+    console.log(play)
 
-    // const cdThumbAnimate = play.animate ([
+    // const cdThumbAnimate = $('.cdMove').animate ([
             
     //     { transform: 'rotate(0deg)'},
     //     { transform : 'rotate(360deg)' }
@@ -239,13 +254,94 @@ function handleCdtheme() {
     //     iterations : Infinity,
     //     easing : 'linear'
     // })
-    // cdThumbAnimate.play()
+
+
+
+    if (isPlaying) {
+        play.classList.add('active')
+        // cdThumbAnimate.play()
+    } else {
+        play.classList.remove('active')
+        play.classList.add('reset')
+        setTimeout(() => {
+            play.classList.remove('reset')
+        }, 2000)
+
+        // cdThumbAnimate.pause()
+    }
+    
+    
+    
+
 }
+
+
 
 function loadFirstSong() {
     const song = $('.listMusic ul > li') 
     song.classList.add('active')
     audio.src = list[0].link
+    const cdTheme = $('.cdTheme')
+    let hmtl = [`
+        <div class="cd" style="background-image: url(${list[0].img})"></div>
+        <div class="cdMove" style="background-image: url(${list[0].img})" >
+            <div class="dot"></div>
+        </div>
+        <div class="content">
+            <p>...</p>
+            <h2>${list[0].name}</h2>
+            <p>${list[0].author}</p>
+        </div>
+    `]
+    cdTheme.innerHTML = hmtl.join('')
+}
+
+function handleFindSong() {
+    const $ = document.querySelector.bind(document)
+
+    const input = document.querySelector('.find')
+    const  btnFindSong = document.querySelector('.fa-magnifying-glass')
+    const audio = document.getElementById('audio')
+
+
+    btnFindSong.onclick = () =>{
+        let song = input.value
+        list.forEach(play => {
+            if(play.name === song) {
+                $('.listMusic ul .active').classList.remove('active')
+                const iconPlay = $('.fa-circle-play')
+                const iconPause = $('.fa-circle-pause')
+
+                currSong = play.id
+                let element = document.getElementById(`${currSong}`)
+                element.classList.add('active')
+                iconPlay.style.display = 'none'
+                iconPause.style.display = 'block'
+                audio.src = play.link
+
+                // set img cursor position
+                const cdTheme = $('.cdTheme')
+                let hmtl = [`
+                    <div class="cd" style="background-image: url(${play.img})"></div>
+                    <div class="cdMove" style="background-image: url(${play.img})" >
+                        <div class="dot"></div>
+                    </div>
+                    <div class="content">
+                        <p>...</p>
+                        <h2>${play.name}</h2>
+                        <p>${play.author}</p>
+                    </div>
+                `]
+                cdTheme.innerHTML = hmtl.join('')
+
+                audio.play()
+                isPlaying = true
+                input.value=''
+            } 
+        })
+        handleCdtheme()
+        loadtime()
+    }
 }
 
 
@@ -255,6 +351,9 @@ async function start() {
     await loadFirstSong()
     await handleEvent()
     await handleChangeData()
+    await handleFindSong()
 }
+
+export {list, isPlaying, currSong, loadtime} 
 
 start()

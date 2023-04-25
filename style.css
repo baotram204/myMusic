@@ -169,9 +169,47 @@ p {
 .cdTheme {
     position: absolute;
     width: 100%;
-    /* height: 300px; */
     z-index: 40;
 }
+.cdTheme.active .cd {
+    animation: move-left 2s ease-in-out forwards;
+}
+
+.cdTheme.active .cdMove {
+    animation: move-right 2s ease-in-out forwards;
+}
+
+.cdTheme.active {
+    color: #eee;
+    font-size: 16px;
+}
+
+.cdTheme.reset .cd {
+    animation: reset-box1 2s forwards;
+}
+  
+.cdTheme.reset .cdMove {
+    animation: reset-box2 2s forwards;
+}
+  
+@keyframes reset-box1 {
+    from {
+        transform: translateX(-25%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes reset-box2 {
+    from {
+        transform: translateX(25%);
+    }   
+    to {
+        transform: translateX(0);
+    }
+}
+  
 
 .cd {
     position: absolute;
@@ -180,10 +218,10 @@ p {
     left: 0; right: 0; top: 10px;
     width: 150px;
     height: 150px;
-    background-image: url(/src/avtMusic/duyenam.png);
     background-size: cover;
     border-radius: 10px;
     z-index: 50;
+
 }
 
 .cdMove {
@@ -193,7 +231,6 @@ p {
     left: 0; right: 0; top: 20px;
     width: 130px;
     height: 130px;
-    background-image: url(/src/avtMusic/duyenam.png);
     background-size: cover;
     z-index: 1;
     border-radius: 50%;
@@ -201,18 +238,31 @@ p {
     border: 2px #eee solid;
     opacity: 0.7;
 
-    transition: transform 1s ease-in-out;
 }
 
-.cdMove.active {
-    transform: translateX(70px); 
-    border-radius: 50%;
-    box-shadow: 0 0 50px 20px var(--active-color);
-}
+@keyframes move-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-25%);
+    }
+  }
+  
+  @keyframes move-right {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(25%);
+    }
+  }
+
+/*  */
 
 
 
-.cdMove.active::before { /* dot in cd*/
+.cdMove::before { /* dot in cd*/
     content: '';
     height: 15px;
     width: 15px;
@@ -220,13 +270,12 @@ p {
     background-color: #fff;
     opacity: 0.9;
     border: 1px black solid;
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     margin: auto;
-    transform: translate(50%, 0);
 }
 
 
@@ -240,7 +289,7 @@ p {
     left: 0;
     margin: auto;
     text-align: center;
-    transform: translateY(-100%);
+    transform: translate(0, -100%);
 }
 
 .cdTheme > .content > h2 {
@@ -347,6 +396,8 @@ i.fa-solid.fa-magnifying-glass {
 
 
 
+
+
 .listMusic > ul > li {
     height: 70px;
     width: 100%;
@@ -383,7 +434,6 @@ i.fa-solid.fa-magnifying-glass {
     height: 50px;
     border-radius: 5px;
     background-size: cover;
-    /* background-image: url(./src/avtMusic/duyenam.png); */
     margin: 12px;
 }
 

@@ -48,14 +48,10 @@ function handleChangeData() {
             const bio = $('.bio')
             $('.img').style.backgroundImage = currAvt
             document.documentElement.style.setProperty('--active-color', `${currColor}`);
-            $('.avata > .content > h3').innerHTML = name.value
-            $('.avata > .content > p').innerHTML = bio.value
+            if( name.value ) $('.avata > .content > h3').innerHTML = name.value
+            if (bio.value) $('.avata > .content > p').innerHTML = bio.value
             $('.setting').style.display = 'none';
         }
-
-    }
-
-    function editData() {
 
     }
 }
