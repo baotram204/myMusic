@@ -1,7 +1,6 @@
 
 import getListMusic from './getApi.js'
 import handleChangeData from './changeData.js'
-// import handleFindSong from './handleFindSong.js'
 
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
@@ -13,34 +12,29 @@ const audio = document.getElementById('audio')
 
 
 
-let list, currSong=1, isPlaying = false, isRepeat = false, isRandom = false, isNext = false, isPrev = false
-let favoritesSong
+let list, currSong=0, isPlaying = false, isRepeat = false, isRandom = false, isNext = false, isPrev = false
+let favoritesSong = []
 
 // render song
 function getSongs(songs) {
     list = songs
     console.log(list)
     let html =''
-    songs.map(song => {
+    songs.map((song,index) => {
         return html += `
-        <li class="song" id="${song.id}">
+        <li class="song" data-index="${index}">
             <div class="avt" style="background-image: url(${song.img})"></div>
             <div class="content">
                 <h3>${song.name}</h3>
                 <p>${song.author}</p>
             </div>
             <div class="icons">
-                <div class="heart" onclick="handleFavoritesSong(${song.id})">
+                <div class="heart">
                     <i class="fa-regular fa-heart"></i>
                 </div>
                 <div class="options">
-                    <i class="fa-solid fa-ellipsis"></i>
+                    <div></div>
                 </div>
-            </div>
-            <div class="list-Option">
-                <div class="delete">Xóa</div>
-                <div class="nextSong">Phát tiếp theo</div>
-                <div class="add">Thêm vào yêu thích</div>
             </div>
         </li>
         `
@@ -49,6 +43,39 @@ function getSongs(songs) {
     $('.listMusic > ul').innerHTML = html
 
 
+}
+
+function handleEventTab() {
+    const tab2 = $('.tab2')
+    tab2.onclick = () => {
+        $('.active').classList.remove('active')
+        tab2.classList.add('active')
+        $('.listMusic > ul').innerHTML = ''
+        handleEvent()
+
+        let html =''
+    favoritesSong.map(song => {
+        return html += `
+        <li class="song" id="${song.id}">
+            <div class="avt" style="background-image: url(${song.img})"></div>
+            <div class="content">
+                <h3>${song.name}</h3>
+                <p>${song.author}</p>
+            </div>
+            <div class="icons">
+                <div class="heart">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="options">
+                    <div></div>
+                </div>
+            </div>
+        </li>
+        `
+    })
+
+    $('.listMusic > ul').innerHTML = html
+    }
 }
 
 function handleEvent() {
@@ -61,38 +88,55 @@ function handleEvent() {
     const progressBar = $('.progress')
     const volume = $('.volume')
 
-    
-function handleFavoritesSong(id) {
-    console.log(id)
-}
-
-
-    songs.forEach(song =>{
+    // click song
+    Array.from(songs).map((song,index) =>{
+        //click song
         song.onclick = (e) =>{
             const songNode = e.target.closest('.song:not(.active)')
             const listIcons = e.target.closest('.icons')
 
-            if(!songNode && !isPlaying) {
+            if(!songNode && !isPlaying && !listIcons) {
                 currSong = Number(song.id)
                 handlePlayMusic()
                 handleCdtheme()
 
             }
-
-
             if(songNode && !listIcons) {
-                currSong = song.id
+                currSong = Number(song.id)
                 handlePlayMusic()
                 handleCdtheme()
             }
-
-                
         }
+
+
+        const favoBtn = song.children[2].children[0]
+        favoBtn.addEventListener('click', function() {
+            let indexCurr = index
+            if (this.classList.contains('favo')) {
+                this.classList.remove('favo');
+                list.map((play,index) => {
+                    if (index == indexCurr) {
+                        favoritesSong.map((song, index) => {
+                            if(index == indexCurr) favoritesSong.splice(index, 1)
+                        })
+                    }
+                })
+                
+            } else {
+                this.classList.add('favo');
+                list.map((play,index) => {
+                    if (index == indexCurr) favoritesSong.push(play)
+                })
+            }
+            console.log(favoritesSong)
+        });
+
     })
 
+
     prev.onclick = () => {
-        if (currSong === 1) {
-            currSong = list.length
+        if (currSong === 0) {
+            currSong = list.length-1
         } else {
             currSong = currSong -1
         }
@@ -105,10 +149,10 @@ function handleFavoritesSong(id) {
 
         
         if (isRandom) {
-            currSong = Math.floor( Math.random()* (list.length ))  +1
+            currSong = Math.floor( Math.random()* (list.length ))  
             
         } else {
-            currSong = currSong === list.length ? 1 : currSong + 1
+            currSong = currSong === list.length-1 ? 0 : currSong + 1
         }
 
         console.log(currSong)
@@ -143,8 +187,6 @@ function handleFavoritesSong(id) {
         handleCdtheme()
         loadtime()
     }
-
-   
 
     repeat.onclick = () => {
         if (!isRepeat) {
@@ -213,15 +255,20 @@ function handleFavoritesSong(id) {
         console.log(audio.volume)
     })
 
+}
 
+// handle favorite Song
+function handleFavor(song, index) {
+        
 }
 
 // when music is playing
 function handlePlayMusic() {
-    list.forEach(play => {
-        if (play.id == currSong) {
+    list.map((play,index) => {
+        if (index == currSong) {
+            console.log(index)
             $('.listMusic ul .active').classList.remove('active')
-            let element = document.getElementById(`${currSong}`)
+            let element = document.querySelector(`[data-index= "${index}"]`)
             element.classList.add('active')
             iconPlay.style.display = 'none'
             iconPause.style.display = 'block'
@@ -327,14 +374,11 @@ function handleFindSong() {
 
     btnFindSong.onclick = () =>{
         let song = input.value
-        list.forEach(play => {
+        list.map((play,index) => {
             if(play.name === song) {
                 $('.listMusic ul .active').classList.remove('active')
-                const iconPlay = $('.fa-circle-play')
-                const iconPause = $('.fa-circle-pause')
-
-                currSong = play.id
-                let element = document.getElementById(`${currSong}`)
+                currSong = index
+                let element = document.querySelector(`[data-index= "${index}"]`)
                 element.classList.add('active')
                 iconPlay.style.display = 'none'
                 iconPause.style.display = 'block'
@@ -358,6 +402,8 @@ function handleFindSong() {
                 audio.play()
                 isPlaying = true
                 input.value=''
+                currSong = index
+
             } 
         })
         handleCdtheme()
@@ -373,8 +419,7 @@ async function start() {
     await handleEvent()
     await handleChangeData()
     await handleFindSong()
+    await handleEventTab()
 }
-
-export {list, isPlaying, currSong, loadtime} 
 
 start()
