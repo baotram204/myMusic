@@ -14,30 +14,33 @@ const audio = document.getElementById('audio')
 
 
 let list, currSong=1, isPlaying = false, isRepeat = false, isRandom = false, isNext = false, isPrev = false
+let favoritesSong
 
-
+// render song
 function getSongs(songs) {
     list = songs
     console.log(list)
     let html =''
     songs.map(song => {
         return html += `
-        <li class="" id="${song.id}">
+        <li class="song" id="${song.id}">
             <div class="avt" style="background-image: url(${song.img})"></div>
             <div class="content">
                 <h3>${song.name}</h3>
                 <p>${song.author}</p>
             </div>
             <div class="icons">
-                <i class="fa-regular fa-heart"></i>
+                <div class="heart" onclick="handleFavoritesSong(${song.id})">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
                 <div class="options">
                     <i class="fa-solid fa-ellipsis"></i>
-                    <div class="list-Option">
-                        <div class="delete">Xóa</div>
-                        <div class="nextSong">Phát tiếp theo</div>
-                        <div class="add">Thêm vào yêu thích</div>
-                    </div>
                 </div>
+            </div>
+            <div class="list-Option">
+                <div class="delete">Xóa</div>
+                <div class="nextSong">Phát tiếp theo</div>
+                <div class="add">Thêm vào yêu thích</div>
             </div>
         </li>
         `
@@ -47,8 +50,6 @@ function getSongs(songs) {
 
 
 }
-
-
 
 function handleEvent() {
     const songs = $$('.listMusic ul li') 
@@ -60,16 +61,32 @@ function handleEvent() {
     const progressBar = $('.progress')
     const volume = $('.volume')
 
-    // songs.forEach(song =>{
-    //     song.onclick = () =>{
-    //         handlePlayMusic()
-    //         handleCdtheme()
-    //         currSong = song.id  
-    //     }
-    // })
+    
+function handleFavoritesSong(id) {
+    console.log(id)
+}
+
 
     songs.forEach(song =>{
         song.onclick = (e) =>{
+            const songNode = e.target.closest('.song:not(.active)')
+            const listIcons = e.target.closest('.icons')
+
+            if(!songNode && !isPlaying) {
+                currSong = Number(song.id)
+                handlePlayMusic()
+                handleCdtheme()
+
+            }
+
+
+            if(songNode && !listIcons) {
+                currSong = song.id
+                handlePlayMusic()
+                handleCdtheme()
+            }
+
+                
         }
     })
 
@@ -85,13 +102,16 @@ function handleEvent() {
     }
 
     next.onclick = () => {
+
         
         if (isRandom) {
             currSong = Math.floor( Math.random()* (list.length ))  +1
             
         } else {
-            currSong = currSong === list.length ? 1 : currSong+1
+            currSong = currSong === list.length ? 1 : currSong + 1
         }
+
+        console.log(currSong)
         isNext = true
         isPlaying = true
         handlePlayMusic()
@@ -241,21 +261,21 @@ function loadtime() {
 
 }
 
+// cd 
 function handleCdtheme() {
     const play = $('.cdTheme')
-    console.log(play)
 
-    // const cdThumbAnimate = $('.cdMove').animate ([
-            
-    //     { transform: 'rotate(0deg)'},
-    //     { transform : 'rotate(360deg)' }
-    // ], {
-    //     duration : 10000, 
-    //     iterations : Infinity,
-    //     easing : 'linear'
-    // })
+    // bug quay mãi 
+    const cdThumbAnimate = $('.cdMove').animate ([
+        { transform: 'rotate(0deg)'},
+        { transform : 'rotate(360deg)' }
+    ], {
+        duration : 10000, 
+        iterations : Infinity,
+        easing : 'linear'
+    })
 
-
+    cdThumbAnimate.play()
 
     if (isPlaying) {
         play.classList.add('active')
@@ -276,7 +296,7 @@ function handleCdtheme() {
 }
 
 
-
+//  render first song 
 function loadFirstSong() {
     const song = $('.listMusic ul > li') 
     song.classList.add('active')
@@ -296,6 +316,7 @@ function loadFirstSong() {
     cdTheme.innerHTML = hmtl.join('')
 }
 
+// handle search song
 function handleFindSong() {
     const $ = document.querySelector.bind(document)
 

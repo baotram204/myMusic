@@ -21,7 +21,6 @@ body {
     width: 100vw;
     background-image: url(./src/background/img1.jpg);
     background-size: cover;
-    position: relative;
     overflow: hidden;
     position: relative;
 }
@@ -117,7 +116,7 @@ p {
     margin-right: 10px;
 }
 
-.content p {
+.content > p {
     font-size: 12px;
 }
 
@@ -172,41 +171,58 @@ p {
     z-index: 40;
 }
 .cdTheme.active .cd {
-    animation: move-left 2s ease-in-out forwards;
+    animation: move-left 1s ease-in-out forwards;
 }
 
 .cdTheme.active .cdMove {
-    animation: move-right 2s ease-in-out forwards;
+    animation: move-right 1s ease-in-out forwards;
 }
 
 .cdTheme.active {
     color: #eee;
-    font-size: 16px;
 }
 
 .cdTheme.reset .cd {
-    animation: reset-box1 2s forwards;
+    animation: reset-box1 1s forwards;
 }
   
 .cdTheme.reset .cdMove {
-    animation: reset-box2 2s forwards;
+    animation: reset-box2 1s forwards;
 }
-  
+
 @keyframes reset-box1 {
     from {
-        transform: translateX(-25%);
+        right: 75px;
     }
     to {
-        transform: translateX(0);
+        right: 0;
     }
 }
 
 @keyframes reset-box2 {
     from {
-        transform: translateX(25%);
+        left: 75px;
     }   
     to {
-        transform: translateX(0);
+        left: 0;
+    }
+}
+
+@keyframes move-left {
+    from {
+      right: 0;
+    }
+    to {
+      right: 75px;
+    }
+}
+
+@keyframes move-right {
+    from {
+        left: 0;
+    }
+    to {
+        left: 75px;
     }
 }
   
@@ -221,7 +237,6 @@ p {
     background-size: cover;
     border-radius: 10px;
     z-index: 50;
-
 }
 
 .cdMove {
@@ -240,23 +255,7 @@ p {
 
 }
 
-@keyframes move-left {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-25%);
-    }
-  }
-  
-  @keyframes move-right {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(25%);
-    }
-  }
+
 
 /*  */
 
@@ -337,9 +336,10 @@ p {
     color: var(--text-color);
     border-radius: 5px;
     font-weight: 600;
-    font-size: 18px;
+    /* font-size: 18px; */
     opacity: 0.9;
 }
+
 
 
 .search {
@@ -367,6 +367,7 @@ i.fa-solid.fa-magnifying-glass {
     cursor: pointer;
 }
 
+
 .listMusic {
     margin: 8px;
     height: 85%;
@@ -376,6 +377,7 @@ i.fa-solid.fa-magnifying-glass {
 .listMusic > ul {
     height: 100%;
     overflow-y: scroll;
+    overflow-x: hidden;
     padding: 2px 8px;
     /* box-shadow: -5px 5px 20px black; */
     
@@ -408,6 +410,7 @@ i.fa-solid.fa-magnifying-glass {
     position: relative;
     overflow: hidden; /* Ẩn bất kì phần tử con ra ngoài phần tử cha*/
     cursor: pointer;
+
 }
 
  
@@ -443,15 +446,30 @@ i.fa-solid.fa-magnifying-glass {
 
 .listMusic ul li .icons {
     display: flex;
-    gap: 20px;
+    align-items: center;
+    gap: 15px;
 }
+
+.heart, .options {
+    padding: 4px;
+}
+
+
 
 .list-Option {
     display: none;
-    height: 200px;
-    width: 100px;
-    /* background-color: #ccc; */
+    z-index: 100;
+    position: fixed;
+    width: 120px;
+    background-color: #ccc;
+    /* transform: translate(150%, -100%); */
+    transform: translate(40%, -50%);
+    overflow: visible;
+    color: #fff;
+    font-size: 14px;
 }
+
+
 
 
 /* control audio */
