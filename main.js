@@ -1,5 +1,5 @@
 import getListMusic from './getApi.js'
-import costumeData from './costumeData.js'
+import handleChangeData from './changeData.js'
 
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
@@ -352,7 +352,7 @@ async function start() {
     await getListMusic(render)
     await loadFirstSong()
     await handleEvent()
-    await costumeData()
+    await handleChangeData()
 }
 
 start()
