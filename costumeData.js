@@ -1,4 +1,4 @@
-function handleChangeData() {
+function handleCostumeData() {
     const $ = document.querySelector.bind(document)
     const $$ = document.querySelectorAll.bind(document)
 
@@ -56,4 +56,4 @@ function handleChangeData() {
     }
 }
 
-export default handleChangeData
+export default handleCostumeData

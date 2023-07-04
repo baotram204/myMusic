@@ -1,5 +1,5 @@
 import getListMusic from './getApi.js'
-import handleChangeData from './changeData.js'
+import handleCostumeData from './costumeData.js'
 
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
@@ -324,35 +324,15 @@ function handleEvent() {
         isFindSong = true
         playMusic()
     }
-    handleSwitchPages()
 }
 
-function renderFavorites() {
-
-}
-
-function handleSwitchPages() {
-    tabs.foreach(tab => {
-        console.log(tab)
-        // tab.onclick = () => {
-        //     console.log(tab)
-        //     if (tab === 'tab1') {
-        //         start()
-        //     }
-        //     if (tab === 'tab2') {
-        //         listMusic.innerHTML = ''
-        //         render(favoritesSong)
-        //     }
-        // }
-    })
-}
 
 async function start() {
     // render list songs
     await getListMusic(render)
     await loadFirstSong()
     await handleEvent()
-    await handleChangeData()
+    await handleCostumeData()
 }
 
 start()
