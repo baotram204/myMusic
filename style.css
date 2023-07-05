@@ -321,7 +321,7 @@ p {
 
 }
 
-.tab1, .tab2, .tab3, .tab4 {
+.tab, .tab, .tab, .tab {
     width: calc(100% / 4);
     text-align: center;
     padding: 12px 4px;

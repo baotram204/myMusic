@@ -16,17 +16,21 @@ const repeat = $('.fa-rotate-right')
 const random = $('.fa-shuffle')
 const progressBar = $('.progress')
 const volume = $('.volume')
-const tabs = $$('.tabs')
+const tabs = $$('.tab')
 const listMusic = $('.listMusic')
 const input = document.querySelector('.find')
 const  btnFindSong = document.querySelector('.fa-magnifying-glass')
 
-let list, currSong=0, isPlaying = false, isRepeat = false, isRandom = false, isNext = false, isPrev = false, isheart = false, isFindSong = false
+let list, currSong=0, status= 'main', 
+    isPlaying = false, isRepeat = false, isRandom = false, isNext = false, isPrev = false, isheart = false, isFindSong = false
 let favoritesSong = []
+
+let favoritesSongIndex = []
+let deletedSongIndex = []
 
 // render song
 function render(songs) {
-    list = songs
+    list = [...songs]
     let html =''
     songs.map((song,index) => {
         return html += `
@@ -50,6 +54,28 @@ function render(songs) {
     
     $('.listMusic > ul').innerHTML = html
 }
+
+function reRender(type) {
+    const list = $$(".listMusic > ul > li");
+    Array.from = list.forEach((song) => {
+        song.style.display = "none"
+    });
+  
+    if (type === "favorite") {
+        favoritesSongIndex.forEach((index) => {
+            list[index].style.display = "flex"
+      });
+    } else if (type === "main") {
+        console.log(type);
+        list.forEach((song) => {
+            song.style.display = "flex";
+      });
+    } else if (type === "deleted") {
+        deletedSongIndex.forEach((index) => {
+            list[index].style.display = "flex"
+      });
+    }
+  }
 
 function loadFirstSong() {
     const song = $('.listMusic ul > li') 
@@ -132,26 +158,36 @@ function clickSong() {
         else {
             let heart = e.target.closest('.heart')
             let song = heart.parentNode.parentNode
-            let indexCurr = song.id
+            let indexCurr = song.id -1
 
 
             if (heart.classList.contains('favo')) {
                 heart.classList.remove('favo');
                 heart = e.target.closest('.heart')
                 song = heart.parentNode.parentNode
-                indexCurr = song.id
+                indexCurr = song.id -1
                 
                 console.log(indexCurr)
 
-                favoritesSong = favoritesSong.filter(play => play.id != indexCurr)
+                favoritesSongIndex.map((index, i) => {
+                    if (index === indexCurr) {
+                      favoritesSongIndex.splice(i, 1);
+                    }
+                });
+                if (status == "favorite") {
+                    reRender("favorite") // render after delete favorite
+                }
+                
                 
             } else {
                 heart.classList.add('favo');
+                if (indexCurr === 0) favoritesSongIndex.push(indexCurr);
                 list.map((play) => {
-                    if (play.id == indexCurr) {
-                        favoritesSong.push(play)
-                    }
-                })
+                if (play.id == indexCurr) {
+                    favoritesSongIndex.push(play.id);
+                    list[play.id].isFavorite = true;
+                }
+                });
             }
             
             console.log(favoritesSong)
@@ -159,7 +195,6 @@ function clickSong() {
         }
     }
 
-    console.log(favoritesSong)
 }
 
 function playBtnSong() {
@@ -326,13 +361,34 @@ function handleEvent() {
     }
 }
 
+function handleSwitchPages() {
+    Array.from(tabs).forEach((tab) => {
+        tab.onclick = () => {
+            document.querySelector(".tab.active").classList.remove("active");
+            tab.classList.add("active")
+            if (tab.classList.contains("favorite")) {
+                status = "favorite"
+                reRender("favorite")
+            } else if (tab.classList.contains("main")) {
+                status = "main"
+                reRender("main")
+            } else if (tab.classList.contains("deleted")) {
+                start = "deleted"
+                reRender("deleted")
+            }
+        };
+    });
+}
+
 
 async function start() {
     // render list songs
     await getListMusic(render)
-    await loadFirstSong()
-    await handleEvent()
-    await handleCostumeData()
+    loadFirstSong()
+    handleEvent()
+    handleCostumeData()
+    handleSwitchPages();
+
 }
 
 start()
